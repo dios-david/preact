@@ -352,6 +352,20 @@ describe('compat render', () => {
 				'not enumerable'
 			);
 		});
+
+		it('shout not forward class when className is not forwarded', () => {
+			const Foo = ({ className, ...props }) => {
+				return (
+					<section className={className}>
+						<div {...props} />
+					</section>
+				);
+			};
+
+			render(<Foo className="bar" />, scratch);
+			expect(scratch.firstChild.className).to.equal('bar');
+			expect(scratch.firstChild.firstChild.className).to.equal('');
+		});
 	});
 
 	it('should cast boolean "download" values', () => {
